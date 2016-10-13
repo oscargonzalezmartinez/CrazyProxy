@@ -1,0 +1,14 @@
+    <div class="container"  >
+
+      <form>
+        <h2 class="form-signin-heading">Please sign in</h2>
+        <label for="user_id" class="sr-only">Usuario</label>
+        <input type="email" ng-model="user.id" value="{user.id}" name="user_id" id="user_id" 
+			ng-keydown="formKeyDown($event)"  class="form-control" placeholder="Usuario" required autofocus>
+        <label for="user_password" class="sr-only">Password</label>
+        <input type="password"  ng-model="user.password" name="{user.password}" id="user_password" 
+			ng-keydown="formKeyDown($event)" id="user_password" class="form-control" placeholder="Password" required>
+        <button ng-click="login()"  class="btn btn-lg btn-primary btn-block" type="submit">Aceptar</button>
+      </form>
+
+    </div>

@@ -1,0 +1,69 @@
+<!doctype html>
+<html ng-app="App">
+  <head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/ui-bootstrap-1.1.1-csp.css">
+<!-- <link rel="stylesheet" href="css/my.css"> -->
+
+	<script src="../lib/angular.min.js"></script>
+	<script src="../lib/angular-route.min.js"></script>	
+	<script src="../lib/angular-translate.min.js"></script>	
+	<script src="../lib/ui-bootstrap-tpls-1.1.1.min.js"></script>	
+	<script src="../lib/ui-bootstrap-1.1.1.min.js"></script>	
+	
+	
+	<script src="app.js"></script>
+
+		
+
+	 
+
+	<script src="modulos/login/login.controller.js"></script>	
+	<script src="modulos/login/login.services.js"></script>	
+	
+	<script src="modulos/main/main.controller.js"></script>	
+	<script src="modulos/main/main.services.js"></script>	
+	
+	<script src="modulos/search/search.controller.js"></script>	
+	<script src="modulos/search/search.services.js"></script>	
+	
+	 	<!--
+	<script src="js/i18n.js"></script>
+-->
+
+  </head>
+  <body>
+
+	<!-- <div ng-show="authenticated"> 
+    <div>
+		<div ng-click="showMenu=!showMenu" class="glyphicon glyphicon-menu-hamburger" aria-hidden="true"></div>
+
+		<nav class="navbar navbar-default" ng-show="showMenu">
+			  <div class="container-fluid">
+				<div class="navbar-header">
+				  <a class="navbar-brand" href="#/search">Buscar</a>
+				</div>
+				<ul class="nav navbar-nav">
+				  <li class="active"><a href="#">Home</a></li>
+				  <li><a href="#">Page 1</a></li>
+				  <li><a href="#">Page 2</a></li>
+				  <li><a href="#">Page 3</a></li>
+				</ul>
+			  </div>
+			</nav>
+	</div> -->
+	<div  class="container-fluid" ng-view> </div>
+	
+	
+ <div ng-show="error!=null"><p>{{error}}</p>
+	  <div>
+		<button ng-click="error = ''" > Cerrar </button>
+	  </div>
+</div>
+
+  </body>
+</html>

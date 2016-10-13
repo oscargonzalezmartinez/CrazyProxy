@@ -23,4 +23,13 @@ Fallarán el 50% de las llamadas
 A cada petición le añade este tiempo de retardo.
 
 También lo puedes configurar con un fichero properties
--Dconfig.file=MisPropiedades.porperties 
+-Dconfig.file=MisPropiedades.porperties
+
+Para usarlo en tu aplicación solo tienes que apuntar a
+
+http://mi_isntancia/proxy/servicio_destino
+
+Los parámetros de delay y error los puedes modificar en tiempo real en el interfaz
+ http://mi_isntancia/api/
+ 
+ Disfruta de la locura.

@@ -121,16 +121,32 @@
 
         <plugins>
        
+     <plugin>
+        <groupId>org.codehaus.mojo</groupId>
+        <artifactId>exec-maven-plugin</artifactId>
+        <version>1.6.0</version>
+        <executions>
+          <execution>
+              <goals>
+              <goal>java</goal>
+            </goals>
+          </execution>
+        </executions>
+        <configuration>
+          <mainClass>${main.class}</mainClass>
+       </configuration>
+      </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-jar-plugin</artifactId>
-                <version>2.6</version>
+                <version>3.2.0</version>
                 <inherited>true</inherited>
                 <configuration>
 		          <archive>
 		            <manifest>
 		            	<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
 			              <mainClass>${main.class}</mainClass>
+							<addClasspath>true</addClasspath>
 		            </manifest>
 		          </archive>
 		        </configuration>
@@ -147,7 +163,7 @@
                             <goal>copy-dependencies</goal>
                         </goals>
                         <configuration>
-                        	<includeScope>compile</includeScope>
+                        	<includeScope>runtime</includeScope>
                         </configuration>
                     </execution>
                 </executions>
@@ -166,35 +182,39 @@
                     <war>${project.build.directory}/${project.build.finalName}.war</war>
                 </configuration>
             </plugin>
-             
-              <!--    
-	        <plugin>
-		        <groupId>org.apache.maven.plugins</groupId>
-		        <artifactId>maven-war-plugin</artifactId>
-		        <version>2.6</version>
-		        <configuration>
-					<webXml>${project.basedir}/src/main/resources/webapp/WEB-INF/web.xml</webXml>
-		          <webResources>
-					<resource>
-		              <directory>${project.basedir}/src/main/resources</directory>
-		              <includes>
-              	<include>**/*.properties</include>
-                <include>**/*.js</include>
-                <include>**/*.html</include>
-                <include>**/*.css</include>
-                <include>**/*.eot</include>
-                <include>**/*.svg</include>
-                <include>**/*.ttf</include>
-                <include>**/*.woff</include>
-                <include>**/*.woff2</include>
-		              </includes>              
-		            </resource>
-		          </webResources>
-		
-		        </configuration>
-	      </plugin>
-        -->
-        </plugins>
+<!--
+      <plugin>
+        <groupId>org.apache.maven.plugins</groupId>
+        <artifactId>maven-shade-plugin</artifactId>
+        <version>3.2.1</version>
+        <executions>
+          <execution>
+            <phase>package</phase>
+            <goals>
+              <goal>shade</goal>
+            </goals>
+            <configuration>
+    
+
+				<filters>
+					<filter>
+						<artifact>*:*</artifact>
+						<excludes>
+							<exclude>META-INF/*.SF</exclude>
+							<exclude>META-INF/*.DSA</exclude>
+							<exclude>META-INF/*.RSA</exclude>
+						</excludes>
+					</filter>
+				</filters>
+
+            </configuration>
+          </execution>
+        </executions>
+      </plugin>
+
+-->
+    </plugins>
+
        
 		<resources>
 			<resource>

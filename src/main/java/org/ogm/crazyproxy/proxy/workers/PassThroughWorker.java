@@ -16,10 +16,14 @@ public class PassThroughWorker extends AbstractWorker{
 
 	public void doProcess(InputStream ism, OutputStream osm){
         try{
+        	if (logger.isInfoEnabled()) {
+        		logger.info("Open connection against " + targetUrl);
+        	}
 	        URLConnection conn = targetUrl.openConnection();
 	        conn.setDoOutput(true);
 	        conn.setDoInput(true);
 	        conn.connect();
+	        
 	        IOUtils.copy(ism,  conn.getOutputStream());
 	        IOUtils.copy(conn.getInputStream(),  osm);
 	        

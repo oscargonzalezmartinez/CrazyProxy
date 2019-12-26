@@ -6,17 +6,33 @@ import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 
-import org.apache.commons.lang3.StringUtils;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.context.annotation.Bean;
+import org.springframework.stereotype.Component;
 
+@Component
 public class DataStore {
 
-	private static List<DataStoreChangeListener> listener = new ArrayList<DataStoreChangeListener>();
-	private static Map data = new HashMap();
+	private List<DataStoreChangeListener> listener = new ArrayList<DataStoreChangeListener>();
+	private Map data = new HashMap();
 	
-	public static void addListener(DataStoreChangeListener newListener){
+	@Value("${target}")
+	private String target = null;
+	
+	//@Value("${mode}")
+	private String mode = null;
+	
+	@Value("${error-threshold}")
+	private Long ErrorThreshold = null;
+	
+	@Value("${delay}")
+	private Long delay = null;
+	
+	public void addListener(DataStoreChangeListener newListener){
 		listener.add(newListener);
 	}
-	public static void set(String key, Object value){
+	
+	public void set(String key, Object value){
 		synchronized (data) {
 			
 			if (data.containsKey(key)){
@@ -26,69 +42,27 @@ public class DataStore {
 			fireEvent();
 		}
 	}
-	private static void fireEvent() {
+	
+	private void fireEvent() {
 		for (DataStoreChangeListener dataStoreChangeListener : listener) {
 			dataStoreChangeListener.onChange();
 		}
 	}
 	
-	public static <T> T get(String key){
+	public <T> T get(String key){
 		return (T)data.get(key);
 	}
 
-	public static void setMode(String target){
-		set("mode",target);
-	}
 	
-	public static String getMode(){
-		return get("mode");
-	}
-	
-	public static void setTarget(String target){
-		set("target",target);
-	}
-	
-	public static String getTarget(){
-		return get("target");
-	}
-	
-	public static Long getRequest(){
+	public  Long getRequest(){
 		return get("total.request");
 	}
-	public static Long getExecutionTime(){
+	public  Long getExecutionTime(){
 		return get("total.executionTime");
 	}
 	
-	public static Long getErrors(){
-		return get("total.errors");
-	}
 	
-	public static void setErrorThreshold(Integer value){
-		//check 0 - 100
-			set("error.threshold",value);
-	}
-	
-	public static Long getDelay(){
-		return get("delay");
-	}
-	
-	public static void setDelay(Long value){
-		//check 0 - 100
-			set("delay",value);
-	}
-	
-	public static Integer getErrorThreshold(){
-		return get("error.threshold");
-	}
-	public static void setPort(Integer port){
-		set("port",port);
-	}
-	
-	public static Integer getPort(){
-		return get("port");
-	}
-	
-	public static void add(String key, Long value){
+	public  void add(String key, Long value){
 		synchronized (data) {
 			
 			Long targetValue = value;
@@ -101,19 +75,23 @@ public class DataStore {
 		}
 	}
 	
-	public static void addRequest(){
+	public  void addRequest(){
 		add("total.request",1L);
 	}
 	
-	public static void addExecutionTime(long executionTime){
+	public  void addExecutionTime(long executionTime){
 		add("total.executionTime",executionTime);
 	}
 	
-	public static void addError(){
+	public  void addError(){
 		add("total.errors",1L);
 	}
 	
-	public static String print(){
+	public  Long getErrors(){
+		return get("total.errors");
+	}
+	
+	public  String print(){
 		StringBuilder sb = new StringBuilder();
 		for (Iterator<String> it = data.keySet().iterator(); it.hasNext();){
 			String key = it.next();
@@ -122,5 +100,41 @@ public class DataStore {
 		}
 		
 		return sb.toString();
+	}
+	public  List<DataStoreChangeListener> getListener() {
+		return listener;
+	}
+	public  void setListener(List<DataStoreChangeListener> listener) {
+		this.listener = listener;
+	}
+	public  Map getData() {
+		return data;
+	}
+	public  void setData(Map data) {
+		this.data = data;
+	}
+	public String getTarget() {
+		return target;
+	}
+	public void setTarget(String target) {
+		this.target = target;
+	}
+	public String getMode() {
+		return mode;
+	}
+	public void setMode(String mode) {
+		this.mode = mode;
+	}
+	public Long getErrorThreshold() {
+		return ErrorThreshold;
+	}
+	public void setErrorThreshold(Long errorThreshold) {
+		ErrorThreshold = errorThreshold;
+	}
+	public Long getDelay() {
+		return delay;
+	}
+	public void setDelay(Long delay) {
+		this.delay = delay;
 	}
 }

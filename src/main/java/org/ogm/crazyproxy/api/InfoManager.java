@@ -1,35 +1,34 @@
 package org.ogm.crazyproxy.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.GET;
-import javax.ws.rs.Path;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
-
 import org.ogm.crazyproxy.api.model.Info;
 import org.ogm.crazyproxy.proxy.DataStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("/info")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+@RestController()
+@RequestMapping(path = "/info")
 public class InfoManager {
 
-	@GET
-	@Produces(MediaType.APPLICATION_JSON)
+	@Autowired
+	private DataStore dataStore = null;
+	
+	@GetMapping
 	public Info get(){
 		Info info = new Info();
-		info.setTarget(DataStore.getTarget());
-		info.setRequest(DataStore.getRequest());
-		info.setErrorThreshold(DataStore.getErrorThreshold());
-		info.setExecutionTime(DataStore.getExecutionTime());
-		info.setErrors(DataStore.getErrors());
-		info.setDelay(DataStore.getDelay());
+		info.setTarget(dataStore.getTarget());
+		info.setRequest(dataStore.getRequest());
+		info.setErrorThreshold(dataStore.getErrorThreshold());
+		info.setExecutionTime(dataStore.getExecutionTime());
+		info.setErrors(dataStore.getErrors());
+		info.setDelay(dataStore.getDelay());
 		return info;
 	}
 	
-	@GET
-	@Path("/target")
+	@GetMapping
+	@RequestMapping("/target")
 	public String getTarget(){
-		return DataStore.getTarget();
+		return dataStore.getTarget();
 	}
 }

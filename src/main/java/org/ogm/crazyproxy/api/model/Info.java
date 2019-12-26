@@ -3,7 +3,7 @@ package org.ogm.crazyproxy.api.model;
 public class Info {
 	private String target = null;
 	private Long request = null;
-	private Integer errorThreshold = null;
+	private Long errorThreshold = null;
 	private Long delay = null;
 	private Long executionTime = null;
 	private Long errors = null;
@@ -44,11 +44,11 @@ public class Info {
 	}
 
 	
-	public Integer getErrorThreshold() {
+	public Long getErrorThreshold() {
 		return errorThreshold;
 	}
 
-	public void setErrorThreshold(Integer errorThreshold) {
+	public void setErrorThreshold(Long errorThreshold) {
 		this.errorThreshold = errorThreshold;
 	}
 

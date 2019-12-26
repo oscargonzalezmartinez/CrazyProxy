@@ -1,18 +1,28 @@
 package org.ogm.crazyproxy.proxy.workers;
 
 import org.ogm.crazyproxy.proxy.DataStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
+@Component
 public class WorkerFactory {
 
-	public static Worker newInstance(){
+	@Autowired
+	private DataStore dataStore = null;
+	
+	public Worker newInstance(){
 		
-
-		if (DataStore.getDelay()!=null && DataStore.getDelay() > 0){
-			return new DelayerWorker(DataStore.getTarget(),DataStore.getDelay());
+		Worker worker = null;
+		if (dataStore.getDelay()!=null && dataStore.getDelay() > 0){
+			worker =  new DelayerWorker(dataStore.getTarget(),dataStore.getDelay());
 		}
-		if (DataStore.getErrorThreshold()!=null && DataStore.getErrorThreshold() > 0){
-			return new ErrorProneWorker(DataStore.getTarget(),DataStore.getErrorThreshold());
+		if (dataStore.getErrorThreshold()!=null && dataStore.getErrorThreshold() > 0){
+			worker =  new ErrorProneWorker(dataStore.getTarget(),dataStore.getErrorThreshold());
 		}
-		return new PassThroughWorker(DataStore.getTarget());
+		else {
+			worker = new PassThroughWorker(dataStore.getTarget());
+		}
+		worker.setDataStore(dataStore);
+		return worker;
 	}
 }

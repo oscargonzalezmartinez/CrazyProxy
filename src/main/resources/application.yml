@@ -1,0 +1,12 @@
+spring:
+ application:
+  name: crazyproxy
+  
+server:
+  port: 8080
+  servlet:
+    context-path: / 
+     
+error-threshold: 0
+delay: 0
+target: https://swapi.co/

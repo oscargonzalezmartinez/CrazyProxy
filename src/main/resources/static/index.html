@@ -1,0 +1,38 @@
+<!doctype html>
+<html ng-app="App">
+  <head>
+  <meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="stylesheet" href="css/bootstrap.min.css">
+<!-- Optional theme -->
+<link rel="stylesheet" href="css/bootstrap-theme.min.css">
+<link rel="stylesheet" href="css/ui-bootstrap-1.1.1-csp.css">
+<!-- <link rel="stylesheet" href="css/my.css"> -->
+
+	<script src="lib/angular.min.js"></script>
+	<script src="lib/angular-route.min.js"></script>	
+	<script src="lib/angular-translate.min.js"></script>	
+	<script src="lib/ui-bootstrap-tpls-1.1.1.min.js"></script>	
+	<script src="lib/ui-bootstrap-1.1.1.min.js"></script>	
+		<script src="lib/sockjs.min.js"></script>	
+		<script src="lib/stomp.min.js"></script>		
+	<script src="app.js"></script>
+
+	
+	<script src="modulos/main/main.controller.js"></script>	
+	<script src="modulos/main/main.services.js"></script>	
+
+  </head>
+  <body>
+
+	<div  class="container-fluid" ng-view> </div>
+	
+	
+ <div ng-show="error!=null"><p>{{error}}</p>
+	  <div>
+		<button ng-click="error = ''" > Cerrar </button>
+	  </div>
+</div>
+
+  </body>
+</html>

@@ -3,7 +3,7 @@ package org.ogm.crazyproxy.proxy.workers;
 import java.io.InputStream;
 import java.io.OutputStream;
 
-public class ErrorProneWorker extends PassThroughWorker{
+public class ErrorProneWorker extends DelayerWorker{
 
 	private Long errorThreshold = null;
 
@@ -11,8 +11,8 @@ public class ErrorProneWorker extends PassThroughWorker{
 		super(newTarget);
 	}
 
-	public ErrorProneWorker(String newTarget, Long errorThreshold) {
-		this(newTarget);
+	public ErrorProneWorker(String newTarget, Long errorThreshold, Long delay) {
+		super(newTarget, delay);
 		this.errorThreshold = errorThreshold;
 	}
 

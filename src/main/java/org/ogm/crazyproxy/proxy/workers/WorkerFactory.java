@@ -13,11 +13,8 @@ public class WorkerFactory {
 	public Worker newInstance(){
 		
 		Worker worker = null;
-		if (dataStore.getDelay()!=null && dataStore.getDelay() > 0){
-			worker =  new DelayerWorker(dataStore.getTarget(),dataStore.getDelay());
-		}
-		else if (dataStore.getErrorThreshold()!=null && dataStore.getErrorThreshold() > 0){
-			worker =  new ErrorProneWorker(dataStore.getTarget(),dataStore.getErrorThreshold());
+		if (dataStore.getErrorThreshold()!=null || dataStore.getDelay()!=null){
+			worker =  new ErrorProneWorker(dataStore.getTarget(),dataStore.getErrorThreshold(),dataStore.getDelay());
 		}
 		else {
 			worker = new PassThroughWorker(dataStore.getTarget());

@@ -19,7 +19,9 @@ public class DelayerWorker extends PassThroughWorker{
 	@Override
 	public void doProcess(InputStream ism, OutputStream osm) {
 		try {
-			Thread.currentThread().sleep(delay);
+			if (delay!=null && delay > 0) {
+				Thread.currentThread().sleep(delay);
+			}
 		} catch (InterruptedException e) {
 			throw new WorkerException(e);
 		}

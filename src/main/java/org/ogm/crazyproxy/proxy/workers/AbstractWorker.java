@@ -7,9 +7,14 @@ import java.net.URL;
 
 import org.ogm.crazyproxy.proxy.DataStore;
 import org.ogm.crazyproxy.proxy.workers.util.Crono;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 
 public abstract class AbstractWorker  implements Worker{
 
+	protected Logger logger = LoggerFactory.getLogger(this.getClass());
+	protected DataStore dataStore = null;
+	
 	protected URL targetUrl = null;
 	protected String target = null;
 	protected Crono crono = new Crono();
@@ -34,16 +39,16 @@ public abstract class AbstractWorker  implements Worker{
 	}
 	
 	public void process(InputStream ism, OutputStream osm){
-		DataStore.addRequest();
+		dataStore.addRequest();
 		pre(ism, osm);
 		try{
 			doProcess(ism, osm);
 		}catch(WorkerException e){
-			DataStore.addError();
+			dataStore.addError();
 			throw e;
 		}finally{
 			post(ism, osm);
-			DataStore.addExecutionTime(executionTime);
+			dataStore.addExecutionTime(executionTime);
 		}
 	}
 	
@@ -51,5 +56,13 @@ public abstract class AbstractWorker  implements Worker{
 	
 	public void post(InputStream ism, OutputStream osm) {
 		executionTime = crono.getElapsedTime();
+	}
+
+	public DataStore getDataStore() {
+		return dataStore;
+	}
+
+	public void setDataStore(DataStore dataStore) {
+		this.dataStore = dataStore;
 	}		
 }

@@ -1,28 +1,30 @@
 package org.ogm.crazyproxy.api;
 
-import javax.ws.rs.Consumes;
-import javax.ws.rs.POST;
-import javax.ws.rs.Path;
-import javax.ws.rs.PathParam;
-import javax.ws.rs.Produces;
-import javax.ws.rs.core.MediaType;
 
 import org.ogm.crazyproxy.proxy.DataStore;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
-@Path("/settings")
-@Produces(MediaType.APPLICATION_JSON)
-@Consumes(MediaType.APPLICATION_JSON)
+
+@RestController()
+@RequestMapping(path = "/settings")
 public class Settings {
 
-	@POST
-	@Path("/errorTH/{error}")
-	public void setErrorThreshold(@PathParam("error") String errorThreshold){
-		DataStore.setErrorThreshold(Integer.valueOf(errorThreshold));
+	@Autowired
+	private DataStore dataStore = null;
+	@PostMapping
+	@RequestMapping("/errorTH/{errorThreshold}")
+	public void setErrorThreshold(@PathVariable String errorThreshold){
+		dataStore.setErrorThreshold(Long.valueOf(errorThreshold));
 	}
 	
-	@POST
-	@Path("/delay/{delay}")
-	public void setDelay(@PathParam("delay") String delay){
-		DataStore.setDelay(Long.valueOf(delay));
+	@PostMapping
+	@RequestMapping("/delay/{delay}")
+
+	public void setDelay(@PathVariable String delay){
+		dataStore.setDelay(Long.valueOf(delay));
 	}
 }

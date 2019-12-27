@@ -5,13 +5,13 @@ import java.io.OutputStream;
 
 public class ErrorProneWorker extends PassThroughWorker{
 
-	private Integer errorThreshold = null;
+	private Long errorThreshold = null;
 
 	public ErrorProneWorker(String newTarget) {
 		super(newTarget);
 	}
 
-	public ErrorProneWorker(String newTarget, Integer errorThreshold) {
+	public ErrorProneWorker(String newTarget, Long errorThreshold) {
 		this(newTarget);
 		this.errorThreshold = errorThreshold;
 	}

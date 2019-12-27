@@ -1,37 +1,32 @@
 app.controller('MainController', 
 	function ($scope,$http,$rootScope,$timeout,MainService) {
-		
-	
 	
     var socket = new SockJS('/wsstats');
     stompClient = Stomp.over(socket);
     stompClient.connect({}, function (frame) {
         //setConnected(true);
         console.log('Connected: ' + frame);
-        stompClient.subscribe('/topic/stats', function (greeting) {
+        stompClient.subscribe('/topic/stats', function (event) {
         	console.debug("WS receive update");
-        	 $scope.info = JSON.parse(greeting.body).content;
+       	 console.log(event.body);
+        	 
+       	  	$scope.info = angular.fromJson(event.body);
+       	  	$scope.$apply();
+    	  
         });
     });
-/*    
-	var ws = new WebSocket("ws://localhost:8080/events/stats");
 
-	ws.onmessage = function (event) {
-	  console.log(event.data);
-	  $scope.info = angular.fromJson(event.data);
-	  $scope.$apply();
-
-	}*/
 
 	
 	               $scope.refreshInfoFromServer = function(data) {
 	            	   $scope.info = data;
 	               }
+	               
 	$scope.refreshInfo = function() {
 		MainService.getInfo().then(
 				function (response) {
 						$scope.info = response.data;
-						$scope.info.delay = 33;
+						//$scope.info.delay = 33;
 						if ($scope.info.request!=0){
 							var result = parseFloat($scope.info.executionTime / $scope.info.request).toFixed(2);
 							if (!isNaN(result)){

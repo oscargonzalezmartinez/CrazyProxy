@@ -13,7 +13,7 @@ import org.slf4j.LoggerFactory;
 public abstract class AbstractWorker  implements Worker{
 
 	protected Logger logger = LoggerFactory.getLogger(this.getClass());
-	private DataStore dataStore = null;
+	protected DataStore dataStore = null;
 	
 	protected URL targetUrl = null;
 	protected String target = null;

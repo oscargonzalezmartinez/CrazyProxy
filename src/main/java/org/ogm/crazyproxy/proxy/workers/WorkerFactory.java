@@ -16,7 +16,7 @@ public class WorkerFactory {
 		if (dataStore.getDelay()!=null && dataStore.getDelay() > 0){
 			worker =  new DelayerWorker(dataStore.getTarget(),dataStore.getDelay());
 		}
-		if (dataStore.getErrorThreshold()!=null && dataStore.getErrorThreshold() > 0){
+		else if (dataStore.getErrorThreshold()!=null && dataStore.getErrorThreshold() > 0){
 			worker =  new ErrorProneWorker(dataStore.getTarget(),dataStore.getErrorThreshold());
 		}
 		else {

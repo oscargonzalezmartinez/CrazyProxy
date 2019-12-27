@@ -15,7 +15,7 @@ public class InfoManager {
 	private DataStore dataStore = null;
 	
 	@GetMapping
-	@RequestMapping("/get")
+	@RequestMapping()
 	public Info get(){
 		Info info = new Info();
 		info.setTarget(dataStore.getTarget());

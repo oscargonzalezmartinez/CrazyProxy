@@ -9,13 +9,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.messaging.simp.SimpMessagingTemplate;
 import org.springframework.stereotype.Component;
 
+import lombok.extern.slf4j.Slf4j;
+
+@Slf4j
 @Component
 public class StatsSocket implements DataStoreChangeListener{
-
-	private static Logger logger = LoggerFactory.getLogger(StatsSocket.class); 
 	
 	@Autowired
 	private InfoManager infoManager = null;
+	
     @Autowired
     private SimpMessagingTemplate broker = null;
 	
@@ -24,8 +26,8 @@ public class StatsSocket implements DataStoreChangeListener{
 	}
 	
 	public void onChange() {
-		if (logger.isDebugEnabled()) {
-			logger.debug("onChange");
+		if (log.isDebugEnabled()) {
+			log.debug("onChange");
 		}
 
 		
